@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>驾驶证管理</title>
+    <link rel="stylesheet" href="assets\css\elementui.css" />
+</head>
+
+<body>
+    <div id="app">
+        <el-button type="info" @click="add">增加</el-button>
+        <el-input v-model="jname" placeholder="请输入司机名称"></el-input>
+        <el-button type="info" @click="sou">查询</el-button>
+        <el-table :data="pageInfo.list" style="width: 100%">
+            <el-table-column prop="jid" label="驾驶证号码" width="180">
+            </el-table-column>
+            <el-table-column prop="jname" label="司机姓名" width="180">
+            </el-table-column>
+            <el-table-column prop="sex" label="性别">
+            </el-table-column>
+            <el-table-column prop="onecity" label="省">
+            </el-table-column>
+            <el-table-column prop="twocity" label="市">
+            </el-table-column>
+            <el-table-column prop="therecity" label="区">
+            </el-table-column>
+            <el-table-column prop="time" label="发证日期">
+            </el-table-column>
+            <el-table-column fixed="right" label="违章条数" width="100">
+                <template slot-scope="scope">
+                    <el-button @click="handleClick(scope.row)" type="text" size="small">{{pageInfo.size}}</el-button>
+                    <el-button @click="update(scope.row)" type="text" size="small">修改</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination :page-size="pageInfo.pageSize" layout="prev, pager, next" :total="pageInfo.total"
+            @current-change="pageChange">
+        </el-pagination>
+    </div>
+    <script src="assets\js\axios.min.js"></script>
+    <script src="assets\js\vue.js"></script>
+    <script src="assets\js\elementui.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjw.dao.WzlistMapper">
+  <resultMap id="BaseResultMap" type="com.zjw.po.Wzlist">
+    <id column="wid" jdbcType="INTEGER" property="wid" />
+    <result column="wname" jdbcType="VARCHAR" property="wname" />
+    <result column="wprice" jdbcType="INTEGER" property="wprice" />
+    <result column="wfz" jdbcType="INTEGER" property="wfz" />
+    <result column="wtime" jdbcType="DATE" property="wtime" />
+    <result column="wzt" jdbcType="VARCHAR" property="wzt" />
+    <result column="jid" jdbcType="INTEGER" property="jid" />
+    <result column="jname" jdbcType="VARCHAR" property="jname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    wid, wname, wprice, wfz, wtime, wzt, jid
+  </sql>
+  <select id="queryList" resultMap="BaseResultMap">
+    select j.jid,j.jname,w.wid, w.wname, w.wprice, w.wfz, w.wtime, w.wzt from wzlist w LEFT JOIN jszlist j on w.jid=j.jid
+    <where>
+      <if test="jid!=null">
+        and j.jid=#{jid}
+      </if>
+      <if test="jname!=null">
+        and j.jname like concat('%',#{jname},'%')
+      </if>
+    </where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select j.jid,j.jname,w.wid, w.wname, w.wprice, w.wfz, w.wtime, w.wzt from wzlist w LEFT JOIN jszlist j on w.jid=j.jid where w.jid=#{jid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wzlist
+    where wid = #{wid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zjw.po.Wzlist">
+    insert into wzlist (wid, wname, wprice, 
+      wfz, wtime, wzt, jid
+      )
+    values (#{wid,jdbcType=INTEGER}, #{wname,jdbcType=VARCHAR}, #{wprice,jdbcType=INTEGER}, 
+      #{wfz,jdbcType=INTEGER}, #{wtime,jdbcType=DATE}, #{wzt,jdbcType=VARCHAR}, #{jid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjw.po.Wzlist">
+    insert into wzlist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wid != null">
+        wid,
+      </if>
+      <if test="wname != null">
+        wname,
+      </if>
+      <if test="wprice != null">
+        wprice,
+      </if>
+      <if test="wfz != null">
+        wfz,
+      </if>
+      <if test="wtime != null">
+        wtime,
+      </if>
+      <if test="wzt != null">
+        wzt,
+      </if>
+      <if test="jid != null">
+        jid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wid != null">
+        #{wid,jdbcType=INTEGER},
+      </if>
+      <if test="wname != null">
+        #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="wprice != null">
+        #{wprice,jdbcType=INTEGER},
+      </if>
+      <if test="wfz != null">
+        #{wfz,jdbcType=INTEGER},
+      </if>
+      <if test="wtime != null">
+        #{wtime,jdbcType=DATE},
+      </if>
+      <if test="wzt != null">
+        #{wzt,jdbcType=VARCHAR},
+      </if>
+      <if test="jid != null">
+        #{jid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjw.po.Wzlist">
+    update wzlist
+    <set>
+      <if test="wname != null">
+        wname = #{wname,jdbcType=VARCHAR},
+      </if>
+      <if test="wprice != null">
+        wprice = #{wprice,jdbcType=INTEGER},
+      </if>
+      <if test="wfz != null">
+        wfz = #{wfz,jdbcType=INTEGER},
+      </if>
+      <if test="wtime != null">
+        wtime = #{wtime,jdbcType=DATE},
+      </if>
+      <if test="wzt != null">
+        wzt = #{wzt,jdbcType=VARCHAR},
+      </if>
+      <if test="jid != null">
+        jid = #{jid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where wid = #{wid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjw.po.Wzlist">
+    update wzlist
+    set wname = #{wname,jdbcType=VARCHAR},
+      wprice = #{wprice,jdbcType=INTEGER},
+      wfz = #{wfz,jdbcType=INTEGER},
+      wtime = #{wtime,jdbcType=DATE},
+      wzt = #{wzt,jdbcType=VARCHAR},
+      jid = #{jid,jdbcType=INTEGER}
+    where wid = #{wid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjw.dao.JszlistMapper">
+  <resultMap id="BaseResultMap" type="com.zjw.po.Jszlist">
+    <id column="jid" jdbcType="INTEGER" property="jid" />
+    <result column="jname" jdbcType="VARCHAR" property="jname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="oneCity" jdbcType="VARCHAR" property="onecity" />
+    <result column="twoCity" jdbcType="VARCHAR" property="twocity" />
+    <result column="thereCity" jdbcType="VARCHAR" property="therecity" />
+    <result column="time" jdbcType="DATE" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jid, jname, sex, oneCity, twoCity, thereCity, time
+  </sql>
+  <select id="selectqueryList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+     <include refid="Base_Column_List"/>
+     from jszlist
+    <where>
+      <if test="jname!=null">
+        jname like concat('%',#{jname},'%')
+      </if>
+    </where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jszlist
+    where jid = #{jid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jszlist
+    where jid = #{jid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zjw.po.Jszlist">
+    insert into jszlist (jid, jname, sex, 
+      oneCity, twoCity, thereCity, 
+      time)
+    values (#{jid,jdbcType=INTEGER}, #{jname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{onecity,jdbcType=VARCHAR}, #{twocity,jdbcType=VARCHAR}, #{therecity,jdbcType=VARCHAR}, 
+      #{time,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjw.po.Jszlist">
+    insert into jszlist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jid != null">
+        jid,
+      </if>
+      <if test="jname != null">
+        jname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="onecity != null">
+        oneCity,
+      </if>
+      <if test="twocity != null">
+        twoCity,
+      </if>
+      <if test="therecity != null">
+        thereCity,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jid != null">
+        #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="jname != null">
+        #{jname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="onecity != null">
+        #{onecity,jdbcType=VARCHAR},
+      </if>
+      <if test="twocity != null">
+        #{twocity,jdbcType=VARCHAR},
+      </if>
+      <if test="therecity != null">
+        #{therecity,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjw.po.Jszlist">
+    update jszlist
+    <set>
+      <if test="jname != null">
+        jname = #{jname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="onecity != null">
+        oneCity = #{onecity,jdbcType=VARCHAR},
+      </if>
+      <if test="twocity != null">
+        twoCity = #{twocity,jdbcType=VARCHAR},
+      </if>
+      <if test="therecity != null">
+        thereCity = #{therecity,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=DATE},
+      </if>
+    </set>
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjw.po.Jszlist">
+    update jszlist
+    set jname = #{jname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      oneCity = #{onecity,jdbcType=VARCHAR},
+      twoCity = #{twocity,jdbcType=VARCHAR},
+      thereCity = #{therecity,jdbcType=VARCHAR},
+      time = #{time,jdbcType=DATE}
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+</mapper>

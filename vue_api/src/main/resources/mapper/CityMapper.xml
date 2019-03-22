@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjw.dao.CityMapper">
+  <resultMap id="BaseResultMap" type="com.zjw.po.City">
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="partId" jdbcType="INTEGER" property="partid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, cname, partId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from city
+    where partId = #{partId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from city
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zjw.po.City">
+    insert into city (cid, cname, partId
+      )
+    values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{partid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjw.po.City">
+    insert into city
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="cname != null">
+        cname,
+      </if>
+      <if test="partid != null">
+        partId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="partid != null">
+        #{partid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjw.po.City">
+    update city
+    <set>
+      <if test="cname != null">
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="partid != null">
+        partId = #{partid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjw.po.City">
+    update city
+    set cname = #{cname,jdbcType=VARCHAR},
+      partId = #{partid,jdbcType=INTEGER}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

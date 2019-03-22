@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>违章记录查询</title>
+    <link rel="stylesheet" href="assets\css\elementui.css" />
+</head>
+
+<body>
+    <div id="app">
+        司机姓名<el-input v-model="jname" placeholder="请输入司机名称"></el-input>
+        驾驶证<el-input v-model="jid" placeholder="请输入司机名称"></el-input>
+        <el-button type="info" @click="sou">查询</el-button>
+        <el-table :data="pageInfo.list" style="width: 100%">
+            <el-table-column prop="jid" label="驾驶证号码" width="180">
+            </el-table-column>
+            <el-table-column prop="jname" label="司机姓名" width="180">
+            </el-table-column>
+            <el-table-column prop="wname" label="违章明细">
+            </el-table-column>
+            <el-table-column prop="wprice" label="罚款">
+            </el-table-column>
+            <el-table-column prop="wfz" label="扣分">
+            </el-table-column>
+            <el-table-column prop="wtime" label="违章时间">
+            </el-table-column>
+            <el-table-column prop="wzt" label="状态">
+            </el-table-column>
+        </el-table>
+        <el-pagination :page-size="pageInfo.pageSize" layout="prev, pager, next" :total="pageInfo.total"
+            @current-change="pageChange">
+        </el-pagination>
+    </div>
+    <script src="assets\js\axios.min.js"></script>
+    <script src="assets\js\vue.js"></script>
+    <script src="assets\js\elementui.js"></script>
+    <script src="js/search.js"></script>
+</body>
+
+</html>
